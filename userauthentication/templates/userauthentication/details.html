@@ -1,0 +1,18 @@
+<h1> Welcome {{user.username}}</h1>
+
+<b>Username </b>: {{user.username}} <br>
+<b>Email </b>: {{user.email}} <br>
+<b>Address</b>: {{instance.uaddress}} <br> 
+<b>Country</b>: {{instance.ucountry}} <br>
+<b>Zipcode</b>:  {{instance.uzipcode}} <br>
+<b>Sex</b>:  {{instance.usex}} <br>
+<b>Language</b>:  {{instance.ulanguage}} <br>
+<b>About</b>:  {{instance.uabout}} <br>
+<b>Image</b>:  {{instance.uimage}} <br>
+
+<form action="{% url 'userauthentication:list' instance.id %}" method="post">
+	{% csrf_token %}
+	<input type="submit" value="Download">
+</form>
+
+<a href="/users/logout/"> logout</a>
