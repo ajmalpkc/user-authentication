@@ -2,6 +2,7 @@
 
 <b>Username </b>: {{user.username}} <br>
 <b>Email </b>: {{user.email}} <br>
+<b>Full name</b>: {{instance.uname }} <br>
 <b>Address</b>: {{instance.uaddress}} <br> 
 <b>Country</b>: {{instance.ucountry}} <br>
 <b>Zipcode</b>:  {{instance.uzipcode}} <br>
@@ -9,6 +10,8 @@
 <b>Language</b>:  {{instance.ulanguage}} <br>
 <b>About</b>:  {{instance.uabout}} <br>
 <b>Image</b>:  {{instance.uimage}} <br>
+<b>Phone</b>: {{instance.uphone}} <br>
+<b>Vechicle</b>: {{instance.uvechicle}}
 
 <form action="{% url 'userauthentication:list' instance.id %}" method="post">
 	{% csrf_token %}

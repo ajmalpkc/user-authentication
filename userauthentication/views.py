@@ -14,8 +14,7 @@ from .models import UserProfile
 
 from .forms import UserForm, UserProfileForm
 
-from django.core import serializers
-
+import xlwt
 # Create your views here.
 def index(request):
 	return render(request, 'userauthentication/index.html')
@@ -79,7 +78,23 @@ def user_logout(request):
 	return HttpResponseRedirect('/users/')
 
 def list(request, id):
-	queryset = UserProfile.objects.filter(id=id)
-	queryset = serializers.serialize('xml', queryset)
-	return HttpResponse(queryset, content_type="application/xml")
- 
+	responce = HttpResponse(content_type='application/ms-excel')
+	responce['Content-Disposition'] = 'attachment; filename=user.xls'
+	wb = xlwt.Workbook(encoding='utf-8')
+	ws = wb.add_sheet('Users')
+	row_num = 0
+	col_num = 0
+	font_style = xlwt.XFStyle()
+
+	columns = ['User name', 'Address', 'Country', 'Zipcode', 'Sex', 'Language', 'About', 'Image', 'Phone', 'Vechicle' ]
+	for col_num in range(len(columns)):
+		ws.write(row_num, col_num, columns[col_num], font_style)
+
+	rows = UserProfile.objects.filter(id=id).values_list('uname', 'uaddress', 'ucountry', 'uzipcode', 'usex', 'ulanguage', 'uabout', 'uimage', 'uphone', 'uvechicle',)
+	for row in rows:
+		row_num += 1
+		for col_num in range(len(columns)):
+			ws.write(row_num, col_num, str(row[col_num]), font_style)
+
+	wb.save(responce)
+	return responce	

@@ -9,6 +9,7 @@ COUNTRY = (('India','India'),('China','China'))
 # Create your models here.
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
+	uname = models.CharField(max_length=200, default='username')
 	uaddress = models.CharField(max_length=200)
 	ucountry = models.CharField(max_length=200,choices=COUNTRY,default='India')
 	uzipcode = models.IntegerField()
@@ -16,6 +17,8 @@ class UserProfile(models.Model):
 	ulanguage = models.CharField(max_length=200)
 	uabout = models.CharField(max_length=200)
 	uimage = models.ImageField(upload_to="imageFolder/", blank=True)
+	uphone = models.CharField(max_length=100,default='9999999999')
+	uvechicle = models.CharField(max_length=200, default='KL')
 
 	def __str__(self):
 		return self.user.username
